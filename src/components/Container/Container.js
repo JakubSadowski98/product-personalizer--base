@@ -1,3 +1,4 @@
+// functionality: wrapping transferred content in <div> with appropriate style
 import styles from './Container.module.scss';
 
 const Container = (props) => {

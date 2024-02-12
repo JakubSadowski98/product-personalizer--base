@@ -5,7 +5,7 @@ import Container from './components/Container/Container';
 const App = () => {
 
   return (
-    <Container>
+    <Container> {/* przyjmuje całą treść, którą mu przekazano, a następnie opakowują ją w <div> z odpowiednim stylem */}
       <Header />
       <Products />
     </Container>

@@ -1,3 +1,4 @@
+// functionality: rendering header with app name
 import styles from './Header.module.scss';
 
 const Header = () => (
