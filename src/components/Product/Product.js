@@ -1,6 +1,6 @@
 // functionality: including whole product view
 import styles from './Product.module.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductHeader from '../ProductHeader/ProductHeader';
@@ -11,7 +11,7 @@ const Product = props => {
   const [currentColor, setCurrentColor] = useState(props.colors[0]); // zmienna stanu z informacją o wybranym kolorze
   const [currentSize, setCurrentSize] = useState(props.sizes[0]); // zmienna stanu z informacją o wybranym rozmiarze
 
-  const getPrice = () => {
+  const getPrice = () => { // cena jest liczona od nowa tylko przy zmianie opcji rozmiaru
     if(currentSize.additionalPrice !== 0) {
       const curretPrice = props.basePrice + currentSize.additionalPrice;
       return curretPrice;
@@ -19,7 +19,11 @@ const Product = props => {
       return props.basePrice
     }
   };
-  const totalPrice = getPrice();
+
+  const totalPrice = useMemo( // useMemo zapamiętuje wartości wykorzystane w ciele funkcji callback i dopóki one się nie zmienią - nie wywołuje callback
+    () => getPrice(),         // funkcja callback, która z kolei wywołuje funkcję getPrice
+    [currentSize]             // lista zależności - wartości, które mają być obserwowane na zmiany
+  );
 
   return (
     <article className={styles.product}>
